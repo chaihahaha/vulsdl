@@ -1,6 +1,5 @@
 #include <SDL.h>
 #include <SDL_vulkan.h>
-#include <SDL_syswm.h>
 #include <SDL_image.h>
 
 #define GLM_FORCE_RADIANS
@@ -215,7 +214,7 @@ private:
             std::cerr << "Failed to init SDL: " << SDL_GetError() << "\n";
             return ;
         }
-        window = SDL_CreateWindow("SDL2 + Vulkan",
+        window = SDL_CreateWindow("VulSDL",
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_VULKAN);
     }
 
