@@ -341,11 +341,8 @@ private:
     }
 
     void recreateSwapChain() {
-        int width = 0, height = 0;
-        // get new frame buffer size
-        SDL_Vulkan_GetDrawableSize(window, &width, &height);
-        while (width == 0 || height == 0) {
-            SDL_Vulkan_GetDrawableSize(window, &width, &height);
+        while (SDL_GetWindowFlags(window) & SDL_WINDOW_MINIMIZED) {
+            SDL_WaitEvent(nullptr);
         }
 
         vkDeviceWaitIdle(device);
