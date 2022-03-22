@@ -417,7 +417,7 @@ private:
     }
 
     void createSurface() {
-        if (SDL_Vulkan_CreateSurface(window, instance, &surface) != VK_SUCCESS) {
+        if (SDL_Vulkan_CreateSurface(window, instance, &surface) != SDL_TRUE) {
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Vulkan_CreateSurface(): %s\n", SDL_GetError());
         }
     }
@@ -872,7 +872,7 @@ private:
         texHeight = texSurface->h;
         texChannels = texSurface->format->BytesPerPixel;
         VkDeviceSize imageSize = (VkDeviceSize)texWidth * texHeight * 4;
-        std::cout << "h:" << texHeight << "w:" << texWidth << "c:" << texChannels << std::endl;
+        //std::cout << "h:" << texHeight << "w:" << texWidth << "c:" << texChannels << std::endl;
         mipLevels = static_cast<uint32_t>(std::floor(std::log2(std::max(texWidth, texHeight)))) + 1;
 
         if (!texSurface) {
