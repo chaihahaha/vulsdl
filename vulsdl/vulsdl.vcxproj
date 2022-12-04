@@ -149,9 +149,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="vk_utils.cpp" />
     <ClCompile Include="vulsdl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="vk_utils.h" />
     <ClInclude Include="vk_mem_alloc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
