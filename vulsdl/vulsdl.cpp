@@ -898,21 +898,14 @@ private:
         if (!texSurface) {
             throw std::runtime_error("failed to load texture image!");
         }
-
         VkBuffer stagingBuffer;
-        VkBufferCreateInfo bufferInfo{ VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO };
-        bufferInfo.size = imageSize;
-        bufferInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
-        VmaAllocationCreateInfo allocInfo = {};
-        allocInfo.usage = VMA_MEMORY_USAGE_AUTO;
-        allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
         VmaAllocation allocation;
-        vmaCreateBuffer(vmaAllocator, &bufferInfo, &allocInfo, &stagingBuffer, &allocation, nullptr);
+        createBuffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT, stagingBuffer, allocation);
 
         void* data;
-        vkMapMemory(device, allocation->GetMemory(), 0, imageSize, 0, &data);
+        vmaMapMemory(vmaAllocator, allocation, &data);
         memcpy(data, textureABGR->pixels, static_cast<size_t>(imageSize));
-        vkUnmapMemory(device, allocation->GetMemory());
+        vmaUnmapMemory(vmaAllocator, allocation);
 
         IMG_Quit();
 
